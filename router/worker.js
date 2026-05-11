@@ -19,6 +19,7 @@ router.get("/workers", async (req, res) => {
         w.rating
       FROM users u
       JOIN worker w ON u.user_id = w.user_id
+      where w.subscription = true
     `);
 
     res.json(result.rows);
@@ -47,7 +48,7 @@ router.get("/workers/:job_type", async (req, res) => {
         w.rating
       FROM users u
       JOIN worker w ON u.user_id = w.user_id
-      WHERE w.job_type = $1
+      WHERE w.job_type = $1 AND w.subscription = true
     `, [job_type]);
 
     res.json(result.rows);
